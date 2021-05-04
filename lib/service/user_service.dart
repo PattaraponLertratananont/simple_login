@@ -8,4 +8,16 @@ class UserService {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString("user", jsonEncode(user.toJson()));
   }
+
+  static Future<String> login(String username, String password) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userString = prefs.getString("user");
+    if (userString!.isEmpty) return "";
+    UserModel user = UserModel.fromJson(jsonDecode(userString));
+    if (username == user.username && password == user.password) {
+      return user.name;
+    } else {
+      return "";
+    }
+  }
 }
