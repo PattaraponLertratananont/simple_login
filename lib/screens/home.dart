@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:simple_login/const/color.dart';
 
 class HomeScreen extends StatelessWidget {
+  final String name;
+  HomeScreen({required this.name});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +20,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             Text(
-              "สวัสดีคุณภัทรพล",
+              "สวัสดีคุณ$name",
               style: TextStyle(
                 fontSize: 22,
               ),

@@ -4,10 +4,18 @@ import 'package:simple_login/const/color.dart';
 import 'package:simple_login/screens/forgot_password.dart';
 import 'package:simple_login/screens/home.dart';
 import 'package:simple_login/screens/register.dart';
+import 'package:simple_login/service/user_service.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,6 +60,7 @@ class LoginScreen extends StatelessWidget {
                       child: TextFormField(
                         cursorColor: AppColors.green[600],
                         style: TextStyle(color: AppColors.green[600]),
+                        controller: usernameController,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.zero,
                           labelText: "ชื่อบัญชี",
@@ -73,6 +82,7 @@ class LoginScreen extends StatelessWidget {
                         obscureText: true,
                         cursorColor: AppColors.green[600],
                         style: TextStyle(color: AppColors.green[600]),
+                        controller: passwordController,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.zero,
                           labelText: "รหัสผ่าน",
@@ -110,10 +120,17 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => HomeScreen(),
-                        ));
+                      onPressed: () async {
+                        try {
+                          String name = await UserService.login(
+                              usernameController.text, passwordController.text);
+                          Navigator.of(context)
+                              .pushReplacement(MaterialPageRoute(
+                            builder: (context) => HomeScreen(name: name),
+                          ));
+                        } catch (e) {
+                          print("Login failed.");
+                        }
                       },
                       style: ButtonStyle(
                         padding: MaterialStateProperty.all(

@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:simple_login/const/color.dart';
+import 'package:simple_login/models/user_model.dart';
 import 'package:simple_login/screens/login.dart';
+import 'package:simple_login/service/user_service.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
 
+  @override
+  _RegisterScreenState createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,6 +59,7 @@ class RegisterScreen extends StatelessWidget {
                       child: TextFormField(
                         cursorColor: AppColors.green[600],
                         style: TextStyle(color: AppColors.green[600]),
+                        controller: nameController,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.zero,
                           labelText: "ชื่อ",
@@ -68,6 +80,7 @@ class RegisterScreen extends StatelessWidget {
                       child: TextFormField(
                         cursorColor: AppColors.green[600],
                         style: TextStyle(color: AppColors.green[600]),
+                        controller: usernameController,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.zero,
                           labelText: "ชื่อบัญชี",
@@ -89,6 +102,7 @@ class RegisterScreen extends StatelessWidget {
                         obscureText: true,
                         cursorColor: AppColors.green[600],
                         style: TextStyle(color: AppColors.green[600]),
+                        controller: passwordController,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.zero,
                           labelText: "รหัสผ่าน",
@@ -110,6 +124,7 @@ class RegisterScreen extends StatelessWidget {
                         obscureText: true,
                         cursorColor: AppColors.green[600],
                         style: TextStyle(color: AppColors.green[600]),
+                        controller: confirmPasswordController,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.zero,
                           labelText: "ยืนยันรหัสผ่าน",
@@ -127,13 +142,24 @@ class RegisterScreen extends StatelessWidget {
                     Container(
                       margin: EdgeInsets.only(top: 24),
                       child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                              builder: (context) => LoginScreen(),
-                            ),
-                            (Route<dynamic> route) => false,
-                          );
+                        onPressed: () async {
+                          try {
+                            UserModel user = UserModel(
+                              name: nameController.text,
+                              username: usernameController.text,
+                              password: confirmPasswordController.text,
+                            );
+                            await UserService.createUser(user);
+                            Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                builder: (context) => LoginScreen(),
+                              ),
+                              (Route<dynamic> route) => false,
+                            );
+                          } catch (e) {
+                            print(e);
+                            print("Register failed.");
+                          }
                         },
                         style: ButtonStyle(
                           padding: MaterialStateProperty.all(
