@@ -117,16 +117,20 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         child: ElevatedButton(
                           onPressed: () async {
                             if (formKey.currentState!.validate()) {
-                              bool success = await UserService.resetPassword(
-                                  usernameController.text,
-                                  passwordController.text);
-                              if (success) {
-                                Navigator.of(context).pushAndRemoveUntil(
-                                  MaterialPageRoute(
-                                    builder: (context) => LoginScreen(),
-                                  ),
-                                  (Route<dynamic> route) => false,
-                                );
+                              try {
+                                bool success = await UserService.resetPassword(
+                                    usernameController.text,
+                                    passwordController.text);
+                                if (success) {
+                                  Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(
+                                      builder: (context) => LoginScreen(),
+                                    ),
+                                    (Route<dynamic> route) => false,
+                                  );
+                                }
+                              } catch (e) {
+                                print("Reset password.");
                               }
                             }
                           },
