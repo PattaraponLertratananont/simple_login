@@ -16,6 +16,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,149 +36,171 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.4,
                 margin: EdgeInsets.symmetric(horizontal: 24),
                 padding: EdgeInsets.symmetric(vertical: 24, horizontal: 16),
                 decoration: BoxDecoration(
                   color: AppColors.green[500],
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      child: Text(
-                        "MyApp",
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: AppColors.green[600],
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 24),
-                      child: TextFormField(
-                        cursorColor: AppColors.green[600],
-                        style: TextStyle(color: AppColors.green[600]),
-                        controller: usernameController,
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.zero,
-                          labelText: "ชื่อบัญชี",
-                          labelStyle: TextStyle(
-                            color: AppColors.green[600],
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: AppColors.green[600]!,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 16),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 24),
-                      child: TextFormField(
-                        obscureText: true,
-                        cursorColor: AppColors.green[600],
-                        style: TextStyle(color: AppColors.green[600]),
-                        controller: passwordController,
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.zero,
-                          labelText: "รหัสผ่าน",
-                          labelStyle: TextStyle(
-                            color: AppColors.green[600],
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: AppColors.green[600]!,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 16),
-                      alignment: Alignment.centerRight,
-                      child: TextButton(
-                        style: ButtonStyle(
-                          overlayColor:
-                              MaterialStateProperty.all(Colors.transparent),
-                        ),
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ForgotPasswordScreen(),
-                          ));
-                        },
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
                         child: Text(
-                          "ลืมรหัสผ่าน",
+                          "MyApp",
                           style: TextStyle(
-                            decoration: TextDecoration.underline,
+                            fontSize: 20,
                             color: AppColors.green[600],
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () async {
-                        try {
-                          String name = await UserService.login(
-                              usernameController.text, passwordController.text);
-                          Navigator.of(context)
-                              .pushReplacement(MaterialPageRoute(
-                            builder: (context) => HomeScreen(name: name),
-                          ));
-                        } catch (e) {
-                          print("Login failed.");
-                        }
-                      },
-                      style: ButtonStyle(
-                        padding: MaterialStateProperty.all(
-                          EdgeInsets.symmetric(horizontal: 24, vertical: 0),
-                        ),
-                        elevation: MaterialStateProperty.all(0),
-                        backgroundColor: MaterialStateProperty.all(
-                          AppColors.green[600],
-                        ),
-                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        )),
-                      ),
-                      child: Text("เข้าสู่ระบบ"),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "หากยังไม่มีบัญชี?",
-                          style: TextStyle(
-                            color: AppColors.green[600],
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 24),
+                        child: TextFormField(
+                          cursorColor: AppColors.green[600],
+                          style: TextStyle(color: AppColors.green[600]),
+                          controller: usernameController,
+                          textInputAction: TextInputAction.next,
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.zero,
+                            labelText: "ชื่อบัญชี",
+                            labelStyle: TextStyle(
+                              color: AppColors.green[600],
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: AppColors.green[600]!,
+                              ),
+                            ),
                           ),
+                          validator: (username) {
+                            if (username!.isEmpty) {
+                              return "กรุณาระบุชื่อบัญชี";
+                            } else {
+                              return null;
+                            }
+                          },
                         ),
-                        TextButton(
+                      ),
+                      SizedBox(height: 16),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 24),
+                        child: TextFormField(
+                          obscureText: true,
+                          cursorColor: AppColors.green[600],
+                          style: TextStyle(color: AppColors.green[600]),
+                          controller: passwordController,
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.zero,
+                            labelText: "รหัสผ่าน",
+                            labelStyle: TextStyle(
+                              color: AppColors.green[600],
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: AppColors.green[600]!,
+                              ),
+                            ),
+                          ),
+                          validator: (password) {
+                            if (password!.isEmpty) {
+                              return "กรุณาระบุรหัสผ่าน";
+                            } else {
+                              return null;
+                            }
+                          },
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 16),
+                        alignment: Alignment.centerRight,
+                        child: TextButton(
                           style: ButtonStyle(
                             overlayColor:
                                 MaterialStateProperty.all(Colors.transparent),
-                            padding: MaterialStateProperty.all(EdgeInsets.zero),
                           ),
                           onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => RegisterScreen(),
+                              builder: (context) => ForgotPasswordScreen(),
                             ));
                           },
                           child: Text(
-                            "สมัครสมาชิก",
+                            "ลืมรหัสผ่าน",
                             style: TextStyle(
                               decoration: TextDecoration.underline,
                               color: AppColors.green[600],
-                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
-                      ],
-                    ),
-                  ],
+                      ),
+                      ElevatedButton(
+                        onPressed: () async {
+                          if (formKey.currentState!.validate()) {
+                            try {
+                              String name = await UserService.login(
+                                  usernameController.text,
+                                  passwordController.text);
+                              Navigator.of(context)
+                                  .pushReplacement(MaterialPageRoute(
+                                builder: (context) => HomeScreen(name: name),
+                              ));
+                            } catch (e) {
+                              print("Login failed.");
+                            }
+                          }
+                        },
+                        style: ButtonStyle(
+                          padding: MaterialStateProperty.all(
+                            EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+                          ),
+                          elevation: MaterialStateProperty.all(0),
+                          backgroundColor: MaterialStateProperty.all(
+                            AppColors.green[600],
+                          ),
+                          shape:
+                              MaterialStateProperty.all(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          )),
+                        ),
+                        child: Text("เข้าสู่ระบบ"),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "หากยังไม่มีบัญชี?",
+                            style: TextStyle(
+                              color: AppColors.green[600],
+                            ),
+                          ),
+                          TextButton(
+                            style: ButtonStyle(
+                              overlayColor:
+                                  MaterialStateProperty.all(Colors.transparent),
+                              padding:
+                                  MaterialStateProperty.all(EdgeInsets.zero),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => RegisterScreen(),
+                              ));
+                            },
+                            child: Text(
+                              "สมัครสมาชิก",
+                              style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                color: AppColors.green[600],
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
