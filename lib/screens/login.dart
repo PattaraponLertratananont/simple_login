@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:simple_login/const/color.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -20,8 +21,8 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
             Container(
-              height: MediaQuery.of(context).size.height * 0.4,
               width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.45,
               margin: EdgeInsets.symmetric(horizontal: 24),
               padding: EdgeInsets.symmetric(vertical: 24, horizontal: 16),
               decoration: BoxDecoration(
@@ -29,6 +30,7 @@ class LoginScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
                     child: Text(
@@ -40,7 +42,6 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 16),
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 24),
                     child: TextFormField(
@@ -60,7 +61,6 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 8),
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 24),
                     child: TextFormField(
@@ -80,6 +80,67 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ),
                     ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 16),
+                    alignment: Alignment.centerRight,
+                    child: TextButton(
+                      style: ButtonStyle(
+                        overlayColor:
+                            MaterialStateProperty.all(Colors.transparent),
+                      ),
+                      onPressed: () {},
+                      child: Text(
+                        "ลืมรหัสผ่าน",
+                        style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          color: AppColors.green[600],
+                        ),
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all(
+                        EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+                      ),
+                      elevation: MaterialStateProperty.all(0),
+                      backgroundColor: MaterialStateProperty.all(
+                        AppColors.green[600],
+                      ),
+                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      )),
+                    ),
+                    child: Text("เข้าสู่ระบบ"),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "หากยังไม่มีบัญชี?",
+                        style: TextStyle(
+                          color: AppColors.green[600],
+                        ),
+                      ),
+                      TextButton(
+                        style: ButtonStyle(
+                          overlayColor:
+                              MaterialStateProperty.all(Colors.transparent),
+                          padding: MaterialStateProperty.all(EdgeInsets.zero),
+                        ),
+                        onPressed: () {},
+                        child: Text(
+                          "สมัครสมาชิก",
+                          style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            color: AppColors.green[600],
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
