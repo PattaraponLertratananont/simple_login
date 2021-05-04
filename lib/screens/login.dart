@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:simple_login/const/color.dart';
+import 'package:simple_login/screens/forgot_password.dart';
 import 'package:simple_login/screens/home.dart';
 import 'package:simple_login/screens/register.dart';
 
@@ -65,6 +66,7 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ),
                     ),
+                    SizedBox(height: 16),
                     Container(
                       margin: EdgeInsets.symmetric(horizontal: 24),
                       child: TextFormField(
@@ -93,7 +95,11 @@ class LoginScreen extends StatelessWidget {
                           overlayColor:
                               MaterialStateProperty.all(Colors.transparent),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => ForgotPasswordScreen(),
+                          ));
+                        },
                         child: Text(
                           "ลืมรหัสผ่าน",
                           style: TextStyle(
@@ -105,7 +111,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
                           builder: (context) => HomeScreen(),
                         ));
                       },

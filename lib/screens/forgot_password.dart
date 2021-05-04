@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:simple_login/const/color.dart';
-import 'package:simple_login/screens/login.dart';
 
-class RegisterScreen extends StatelessWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+class ForgotPasswordScreen extends StatelessWidget {
+  const ForgotPasswordScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +34,7 @@ class RegisterScreen extends StatelessWidget {
                   children: [
                     Container(
                       child: Text(
-                        "สมัครสมาชิก",
+                        "ลืมรหัสผ่าน",
                         style: TextStyle(
                           fontSize: 20,
                           color: AppColors.green[600],
@@ -43,26 +42,6 @@ class RegisterScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 24),
-                      child: TextFormField(
-                        cursorColor: AppColors.green[600],
-                        style: TextStyle(color: AppColors.green[600]),
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.zero,
-                          labelText: "ชื่อ",
-                          labelStyle: TextStyle(
-                            color: AppColors.green[600],
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: AppColors.green[600]!,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 16),
                     Container(
                       margin: EdgeInsets.symmetric(horizontal: 24),
                       child: TextFormField(
@@ -91,28 +70,7 @@ class RegisterScreen extends StatelessWidget {
                         style: TextStyle(color: AppColors.green[600]),
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.zero,
-                          labelText: "รหัสผ่าน",
-                          labelStyle: TextStyle(
-                            color: AppColors.green[600],
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: AppColors.green[600]!,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 16),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 24),
-                      child: TextFormField(
-                        obscureText: true,
-                        cursorColor: AppColors.green[600],
-                        style: TextStyle(color: AppColors.green[600]),
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.zero,
-                          labelText: "ยืนยันรหัสผ่าน",
+                          labelText: "รหัสผ่านใหม่",
                           labelStyle: TextStyle(
                             color: AppColors.green[600],
                           ),
@@ -127,14 +85,7 @@ class RegisterScreen extends StatelessWidget {
                     Container(
                       margin: EdgeInsets.only(top: 24),
                       child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                              builder: (context) => LoginScreen(),
-                            ),
-                            (Route<dynamic> route) => false,
-                          );
-                        },
+                        onPressed: () {},
                         style: ButtonStyle(
                           padding: MaterialStateProperty.all(
                             EdgeInsets.symmetric(horizontal: 24, vertical: 0),
@@ -148,7 +99,7 @@ class RegisterScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8),
                           )),
                         ),
-                        child: Text("สมัครสมาชิก"),
+                        child: Text("ยืนยันรหัสผ่าน"),
                       ),
                     ),
                   ],
