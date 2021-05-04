@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:get/get.dart';
 import 'package:simple_login/const/color.dart';
 import 'package:simple_login/screens/forgot_password.dart';
 import 'package:simple_login/screens/home.dart';
+import 'package:simple_login/screens/login/login_controller.dart';
 import 'package:simple_login/screens/register.dart';
 import 'package:simple_login/service/user_service.dart';
 
@@ -17,6 +19,13 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    Get.put(LoginController());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,14 +57,32 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        child: Text(
-                          "MyApp",
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: AppColors.green[600],
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        child: Obx(() {
+                          return Text(
+                            Get.find<LoginController>()
+                                .title1
+                                .value, // "MyApp",
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: AppColors.green[600],
+                              fontWeight: FontWeight.bold,
+                            ),
+                          );
+                        }),
+                      ),
+                      Container(
+                        child: Obx(() {
+                          return Text(
+                            Get.find<LoginController>()
+                                .title2
+                                .value, // "MyApp",
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: AppColors.green[600],
+                              fontWeight: FontWeight.bold,
+                            ),
+                          );
+                        }),
                       ),
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 24),
