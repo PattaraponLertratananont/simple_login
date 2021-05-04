@@ -12,12 +12,12 @@ class UserService {
   static Future<String> login(String username, String password) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userString = prefs.getString("user");
-    if (userString!.isEmpty) return "";
+    if (userString!.isEmpty) throw Exception("user empty");
     UserModel user = UserModel.fromJson(jsonDecode(userString));
     if (username == user.username && password == user.password) {
       return user.name;
     } else {
-      return "";
+      throw Exception("user empty");
     }
   }
 }
