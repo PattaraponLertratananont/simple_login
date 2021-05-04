@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:simple_login/const/color.dart';
+import 'package:simple_login/screens/home.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -102,7 +103,11 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => HomeScreen(),
+                        ));
+                      },
                       style: ButtonStyle(
                         padding: MaterialStateProperty.all(
                           EdgeInsets.symmetric(horizontal: 24, vertical: 0),
