@@ -3,28 +3,22 @@ import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:simple_login/const/color.dart';
 import 'package:simple_login/screens/forgot_password.dart';
-import 'package:simple_login/screens/home.dart';
 import 'package:simple_login/screens/login/login_controller.dart';
 import 'package:simple_login/screens/register.dart';
-import 'package:simple_login/service/user_service.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
-
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController usernameController = TextEditingController();
+
   TextEditingController passwordController = TextEditingController();
+
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  @override
-  void initState() {
-    super.initState();
-    Get.put(LoginController());
-  }
+  late final LoginController _loginController = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -59,23 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Container(
                         child: Obx(() {
                           return Text(
-                            Get.find<LoginController>()
-                                .title1
-                                .value, // "MyApp",
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: AppColors.green[600],
-                              fontWeight: FontWeight.bold,
-                            ),
-                          );
-                        }),
-                      ),
-                      Container(
-                        child: Obx(() {
-                          return Text(
-                            Get.find<LoginController>()
-                                .title2
-                                .value, // "MyApp",
+                            _loginController.title.value, // "MyApp",
                             style: TextStyle(
                               fontSize: 20,
                               color: AppColors.green[600],
@@ -87,59 +65,47 @@ class _LoginScreenState extends State<LoginScreen> {
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 24),
                         child: TextFormField(
-                          cursorColor: AppColors.green[600],
-                          style: TextStyle(color: AppColors.green[600]),
-                          controller: usernameController,
-                          textInputAction: TextInputAction.next,
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.zero,
-                            labelText: "ชื่อบัญชี",
-                            labelStyle: TextStyle(
-                              color: AppColors.green[600],
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: AppColors.green[600]!,
+                            cursorColor: AppColors.green[600],
+                            style: TextStyle(color: AppColors.green[600]),
+                            controller: usernameController,
+                            textInputAction: TextInputAction.next,
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.zero,
+                              labelText: "ชื่อบัญชี",
+                              labelStyle: TextStyle(
+                                color: AppColors.green[600],
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: AppColors.green[600]!,
+                                ),
                               ),
                             ),
-                          ),
-                          validator: (username) {
-                            if (username!.isEmpty) {
-                              return "กรุณาระบุชื่อบัญชี";
-                            } else {
-                              return null;
-                            }
-                          },
-                        ),
+                            validator: (username) =>
+                                _loginController.usernameValidator(username)),
                       ),
                       SizedBox(height: 16),
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 24),
                         child: TextFormField(
-                          obscureText: true,
-                          cursorColor: AppColors.green[600],
-                          style: TextStyle(color: AppColors.green[600]),
-                          controller: passwordController,
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.zero,
-                            labelText: "รหัสผ่าน",
-                            labelStyle: TextStyle(
-                              color: AppColors.green[600],
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: AppColors.green[600]!,
+                            obscureText: true,
+                            cursorColor: AppColors.green[600],
+                            style: TextStyle(color: AppColors.green[600]),
+                            controller: passwordController,
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.zero,
+                              labelText: "รหัสผ่าน",
+                              labelStyle: TextStyle(
+                                color: AppColors.green[600],
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: AppColors.green[600]!,
+                                ),
                               ),
                             ),
-                          ),
-                          validator: (password) {
-                            if (password!.isEmpty) {
-                              return "กรุณาระบุรหัสผ่าน";
-                            } else {
-                              return null;
-                            }
-                          },
-                        ),
+                            validator: (password) =>
+                                _loginController.passwordValidator(password)),
                       ),
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 16),
@@ -164,20 +130,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       ElevatedButton(
-                        onPressed: () async {
-                          if (formKey.currentState!.validate()) {
-                            try {
-                              String name = await UserService.login(
-                                  usernameController.text,
-                                  passwordController.text);
-                              Navigator.of(context)
-                                  .pushReplacement(MaterialPageRoute(
-                                builder: (context) => HomeScreen(name: name),
-                              ));
-                            } catch (e) {
-                              print("Login failed.");
-                            }
-                          }
+                        onPressed: () {
+                          _loginController.onSubmit(
+                              formKey,
+                              usernameController.text,
+                              passwordController.text,
+                              context);
                         },
                         style: ButtonStyle(
                           padding: MaterialStateProperty.all(
