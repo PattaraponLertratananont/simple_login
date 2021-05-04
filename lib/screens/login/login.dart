@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:simple_login/const/color.dart';
 import 'package:simple_login/screens/forgot_password/forgot_password.dart';
 import 'package:simple_login/screens/login/login_controller.dart';
-import 'package:simple_login/screens/register.dart';
+import 'package:simple_login/screens/register/register.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
