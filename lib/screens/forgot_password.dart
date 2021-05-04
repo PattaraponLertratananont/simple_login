@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simple_login/const/color.dart';
-import 'package:simple_login/screens/login.dart';
+import 'package:simple_login/screens/login/login.dart';
 import 'package:simple_login/service/user_service.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
