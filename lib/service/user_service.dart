@@ -20,4 +20,18 @@ class UserService {
       throw Exception("user empty");
     }
   }
+
+  static Future<bool> resetPassword(String username, String newPassword) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userString = prefs.getString("user");
+    if (userString!.isEmpty) throw Exception("user empty");
+    UserModel user = UserModel.fromJson(jsonDecode(userString));
+    if (username == user.username) {
+      user.password = newPassword;
+      await prefs.setString("user", jsonEncode(user.toJson()));
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
