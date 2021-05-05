@@ -1,26 +1,33 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-import 'package:simple_login/screens/home.dart';
 import 'package:simple_login/service/user_service.dart';
 
+class LoginView {
+  gotoHome(String name) {}
+}
+
 class LoginController extends GetxController {
+  late final UserService userService;
+  late final LoginView view;
   RxString title = RxString("ผู้หญิงน่ารักแก้มสีชมพู");
+  LoginController({required this.userService, required this.view});
 
   @override
   void onInit() {
     super.onInit();
   }
 
-  void onSubmit(GlobalKey<FormState> formKey, String username, String password,
-      BuildContext context) async {
-    if (formKey.currentState!.validate()) {
+  Future<void> onSubmit(
+    bool validate,
+    String username,
+    String password,
+  ) async {
+    if (validate) {
       try {
-        String name = await UserService.login(username, password);
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => HomeScreen(name: name),
-        ));
+        String name = await userService.login(username, password);
+        view.gotoHome(name);
       } catch (e) {
+        print(e);
         print("Login failed.");
       }
     }

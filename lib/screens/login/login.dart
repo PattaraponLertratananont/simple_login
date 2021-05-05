@@ -5,20 +5,22 @@ import 'package:simple_login/const/color.dart';
 import 'package:simple_login/screens/forgot_password/forgot_password.dart';
 import 'package:simple_login/screens/login/login_controller.dart';
 import 'package:simple_login/screens/register/register.dart';
+import 'package:simple_login/service/user_service.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen> implements LoginView {
   TextEditingController usernameController = TextEditingController();
 
   TextEditingController passwordController = TextEditingController();
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  late final LoginController _loginController = Get.put(LoginController());
+  late final LoginController _loginController =
+      Get.put(LoginController(userService: UserService(), view: this));
 
   @override
   Widget build(BuildContext context) {
@@ -132,10 +134,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       ElevatedButton(
                         onPressed: () {
                           _loginController.onSubmit(
-                              formKey,
-                              usernameController.text,
-                              passwordController.text,
-                              context);
+                            formKey.currentState!.validate(),
+                            usernameController.text,
+                            passwordController.text,
+                          );
                         },
                         style: ButtonStyle(
                           padding: MaterialStateProperty.all(
@@ -193,5 +195,10 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  gotoHome(String name) {
+    Get.toNamed("/home", arguments: {"name": name});
   }
 }
