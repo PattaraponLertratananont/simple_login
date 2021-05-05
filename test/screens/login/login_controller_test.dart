@@ -13,4 +13,16 @@ main() {
     final actual = controller.usernameValidator("test");
     expect(actual, null);
   });
+
+  test("valid password", () {
+    var controller = LoginController();
+    final actual = controller.usernameValidator("password");
+    expect(actual, null);
+  });
+
+  test("invalid useranme", () {
+    var controller = LoginController();
+    final actual = controller.usernameValidator("");
+    expect(actual, "กรุณาระบุรหัสผ่าน");
+  });
 }
