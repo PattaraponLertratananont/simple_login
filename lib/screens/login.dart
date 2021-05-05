@@ -151,6 +151,37 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "หากคุณยังไม่มีบัญชี?",
+                          style: TextStyle(
+                            color: AppColors.green[600],
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => Container()),
+                            );
+                          },
+                          child: Text(
+                            "สมัครสมาชิก",
+                            style: TextStyle(
+                              color: AppColors.green[600],
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                          style: ButtonStyle(
+                            overlayColor:
+                                MaterialStateProperty.all(Colors.transparent),
+                          ),
+                        )
+                      ],
+                    ),
                   ],
                 ),
               ),
