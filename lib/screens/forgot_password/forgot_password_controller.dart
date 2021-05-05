@@ -8,7 +8,7 @@ class ForgotPasswordController extends GetxController {
       BuildContext context) async {
     if (formKey.currentState!.validate()) {
       try {
-        bool success = await UserService.resetPassword(username, password);
+        bool success = await UserService().resetPassword(username, password);
         if (success) {
           Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(

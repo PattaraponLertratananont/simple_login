@@ -4,12 +4,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_login/models/user_model.dart';
 
 class UserService {
-  static Future<void> createUser(UserModel user) async {
+  Future<void> createUser(UserModel user) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString("user", jsonEncode(user.toJson()));
   }
 
-  static Future<String> login(String username, String password) async {
+  Future<String> login(String username, String password) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userString = prefs.getString("user");
     if (userString!.isEmpty) throw Exception("user empty");
@@ -21,7 +21,7 @@ class UserService {
     }
   }
 
-  static Future<bool> resetPassword(String username, String newPassword) async {
+  Future<bool> resetPassword(String username, String newPassword) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userString = prefs.getString("user");
     if (userString!.isEmpty) throw Exception("user empty");

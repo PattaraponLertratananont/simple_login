@@ -15,7 +15,7 @@ class RegisterController extends GetxController {
           password: confirmPassword,
         );
 
-        await UserService.createUser(user);
+        await UserService().createUser(user);
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
             builder: (context) => LoginScreen(),
