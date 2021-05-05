@@ -38,7 +38,7 @@ class RegisterController extends GetxController {
 
   String? confirmPasswordValidator(String? password, String? confirmPassword) {
     if (confirmPassword!.isEmpty) {
-      return "กรุณาระบุรหัสผ่าน";
+      return "กรุณายืนยันรหัสผ่าน";
     } else if (confirmPassword != password) {
       return "รหัสผ่านไม่ตรงกัน";
     } else {

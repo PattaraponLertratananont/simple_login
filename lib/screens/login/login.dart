@@ -164,6 +164,7 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
                             ),
                           ),
                           TextButton(
+                            key: Key("register_button"),
                             style: ButtonStyle(
                               overlayColor:
                                   MaterialStateProperty.all(Colors.transparent),

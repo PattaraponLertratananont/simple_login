@@ -49,6 +49,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Container(
                         child: Text(
                           "สมัครสมาชิก",
+                          key: Key("register_title"),
                           style: TextStyle(
                             fontSize: 20,
                             color: AppColors.green[600],
@@ -59,6 +60,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 24),
                         child: TextFormField(
+                            key: Key("name_field"),
                             cursorColor: AppColors.green[600],
                             style: TextStyle(color: AppColors.green[600]),
                             controller: nameController,
@@ -82,6 +84,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 24),
                         child: TextFormField(
+                          key: Key("username_field"),
                           cursorColor: AppColors.green[600],
                           style: TextStyle(color: AppColors.green[600]),
                           controller: usernameController,
@@ -106,6 +109,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 24),
                         child: TextFormField(
+                            key: Key("password_field"),
                             obscureText: true,
                             cursorColor: AppColors.green[600],
                             style: TextStyle(color: AppColors.green[600]),
@@ -130,6 +134,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 24),
                         child: TextFormField(
+                          key: Key("confirm_password_field"),
                           obscureText: true,
                           cursorColor: AppColors.green[600],
                           style: TextStyle(color: AppColors.green[600]),
@@ -155,6 +160,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Container(
                         margin: EdgeInsets.only(top: 24),
                         child: ElevatedButton(
+                          key: Key("register_submit_button"),
                           onPressed: () async {
                             _registerController.onSubmit(
                                 formKey,
