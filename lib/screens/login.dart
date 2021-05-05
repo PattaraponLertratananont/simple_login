@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:simple_login/const/colors.dart';
 import 'package:simple_login/screens/home.dart';
+import 'package:simple_login/screens/register.dart';
 import 'package:simple_login/service/user.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -164,7 +165,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           onPressed: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                  builder: (context) => Container()),
+                                  builder: (context) => RegisterScreen()),
                             );
                           },
                           child: Text(
