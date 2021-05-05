@@ -119,11 +119,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       onTap: () async {
                         if (formKey.currentState!.validate()) {
                           try {
-                            await UserService.login(usernameController.text,
-                                passwordController.text);
+                            String name = await UserService.login(
+                              usernameController.text,
+                              passwordController.text,
+                            );
                             Navigator.of(context).pushAndRemoveUntil(
                               MaterialPageRoute(
-                                builder: (context) => HomeScreen(),
+                                builder: (context) => HomeScreen(name: name),
                               ),
                               (route) => false,
                             );
