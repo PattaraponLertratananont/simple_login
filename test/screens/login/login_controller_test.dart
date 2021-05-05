@@ -7,4 +7,10 @@ main() {
     final actual = controller.usernameValidator("");
     expect(actual, "กรุณาระบุชื่อบัญชี");
   });
+
+  test("valid useranme", () {
+    var controller = LoginController();
+    final actual = controller.usernameValidator("test");
+    expect(actual, null);
+  });
 }
