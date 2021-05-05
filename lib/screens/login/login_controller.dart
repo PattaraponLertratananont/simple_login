@@ -36,7 +36,7 @@ class LoginController extends GetxController {
 
   String? passwordValidator(String? password) {
     if (password!.isEmpty) {
-      return "กรุณาระบุชื่อบัญชี";
+      return "กรุณาระบุรหัสผ่าน";
     } else {
       return null;
     }
