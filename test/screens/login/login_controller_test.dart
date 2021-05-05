@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:simple_login/screens/login/login_controller.dart';
 
 main() {
-  test("valid useranme", () {
+  test("invalid useranme", () {
     var controller = LoginController();
     final actual = controller.usernameValidator("");
     expect(actual, "กรุณาระบุชื่อบัญชี");
