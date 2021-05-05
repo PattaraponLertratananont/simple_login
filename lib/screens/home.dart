@@ -10,9 +10,10 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: AppColors.background,
       body: Container(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset("assets/cover.png"),
-            Text("สวัสดีค่ะ"),
+            Text("สวัสดีค่ะภัทรพล"),
           ],
         ),
       ),
