@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simple_login/const/colors.dart';
+import 'package:simple_login/screens/home.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -118,6 +119,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         if (formKey.currentState!.validate()) {
                           print(usernameController.text);
                           print(passwordController.text);
+                          Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                              builder: (context) => HomeScreen(),
+                            ),
+                            (route) => false,
+                          );
                         }
                       },
                       child: Container(
