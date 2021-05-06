@@ -108,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             return "กรุณาระบุรหัสผ่าน";
                           } else if (!regExp.hasMatch(password)) {
                             return "รหัสผ่านไม่ถูกต้อง";
-                          } else if (password.length <= 6) {
+                          } else if (password.length < 6) {
                             return "รหัสผ่านสั้นเกินไป";
                           } else {
                             return null;
